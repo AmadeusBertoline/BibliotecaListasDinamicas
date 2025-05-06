@@ -44,7 +44,7 @@ public class Lista<T> implements ILista<T> {
 		elemento.proximo = primeiro;
 
 		primeiro = elemento;
-		
+
 		size++;
 
 	}
@@ -72,31 +72,120 @@ public class Lista<T> implements ILista<T> {
 		ultimo.proximo = elemento;
 
 		size++;
-		
+
 	}
 
 	@Override
 	public void add(T dado, int posicao) throws Exception {
-		// TODO Auto-generated method stub
+
+		No<T> elemento = new No<>();
+
+		elemento.dado = dado;
+
+		int size = size();
+
+		if (posicao == 0) {
+
+			addFirst(dado);
+
+		} else if (posicao == size) {
+
+			addLast(dado);
+
+		}
+
+		if (posicao >= 0 && posicao <= size) {
+
+			No<T> ocupado = new No<>();
+
+			ocupado = getNo(posicao - 1);
+
+			elemento.proximo = ocupado.proximo;
+			ocupado.proximo = elemento;
+
+		} else {
+			throw new Exception("Posição inválida");
+		}
 
 	}
 
 	@Override
 	public void removeFirst() throws Exception {
-		// TODO Auto-generated method stub
 
+		if (isEmpty()) {
+
+			throw new Exception("Lista vazia");
+
+		}
+
+		primeiro = primeiro.proximo;
+		size--;
 	}
 
 	@Override
 	public void removeLast() throws Exception {
-		// TODO Auto-generated method stub
+
+		if (isEmpty()) {
+
+			throw new Exception("Lista vazia");
+
+		}
+
+		if (size() == 1) {
+			removeFirst();
+		}
+
+		No<T> penultimo = new No<>();
+
+		penultimo = getNo(size() - 2);
+
+		penultimo.proximo = null;
+
+		size--;
 
 	}
 
 	@Override
 	public void remove(int posicao) throws Exception {
-		// TODO Auto-generated method stub
 
+		if (isEmpty()) {
+
+			throw new Exception("Lista vazia");
+
+		}
+
+		if (posicao < 0 || posicao > size() - 1) {
+
+			throw new Exception("Lista vazia");
+
+		}
+
+		if (posicao == 0) {
+
+			removeFirst();
+
+		} else if (posicao == size() - 1) {
+
+			removeLast();
+
+		}
+
+		if (size() == 1) {
+
+			removeFirst();
+
+		} else {
+
+			No<T> saindo = new No<>();
+			No<T> anterior = new No<>();
+
+			saindo = getNo(posicao);
+			anterior = getNo(posicao - 1);
+
+			anterior.proximo = saindo.proximo;
+
+		}
+		size--;	
 	}
 
 	@Override

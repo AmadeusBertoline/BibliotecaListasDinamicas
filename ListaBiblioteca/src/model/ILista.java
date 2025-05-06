@@ -20,6 +20,4 @@ public interface ILista<T> {
 
 	public T get(int posicao) throws Exception;
 
-	
-
 }
